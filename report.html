@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>APP初步分析</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>
+</head>
+<body>
+<div  style="margin:auto auto;">
+    <div id="time" style="width: 100%;height:600px;"></div>
+    <div id="mem" style="width: 100%;height:600px;margin-top: 10px"></div>
+    <div id="cpu" style="width: 100%;height:600px;margin-top: 10px"></div>
+</div>
+<script type="text/javascript">
+
+    var myChart1 = echarts.init(document.getElementById('time'));
+    option1 = {
+        title : {
+            text: 'app启动时间变化',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['启动时间']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : []
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} ms'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'启动时间',
+                type:'line',
+                data:[],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+            },
+        ]
+    };
+    
+            option1.series[0].data.push(512)
+            option1.xAxis[0].data.push( 1)
+    
+            option1.series[0].data.push(459)
+            option1.xAxis[0].data.push( 2)
+    
+            option1.series[0].data.push(421)
+            option1.xAxis[0].data.push( 3)
+    
+            option1.series[0].data.push(449)
+            option1.xAxis[0].data.push( 4)
+    
+            option1.series[0].data.push(407)
+            option1.xAxis[0].data.push( 5)
+    
+    myChart1.setOption(option1);
+    
+    var myChart2 = echarts.init(document.getElementById('mem'));
+    option2 = {
+        title : {
+            text: 'app内存占用情况',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['虚拟内存占用','物理内存占用']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : []
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} KB'
+               }
+            }
+        ],
+        series : [
+            {
+                name:'虚拟内存占用',
+                type:'bar',
+                data:[],
+            },
+            {
+                name:'物理内存占用',
+                type:'bar',
+                data:[],
+            }
+        ]
+    };
+     
+         option2.series[0].data.push(27668)
+         option2.series[1].data.push(27592)
+         option2.xAxis[0].data.push(String("2018-03-13 13:32:59"))
+    
+        myChart2.setOption(option2);
+
+
+    var myChart3 = echarts.init(document.getElementById('cpu'));
+    option3 = {
+    title : {
+        text: 'App的CPU占用情况',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['CPU占用率']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+                show: true,
+                type: ['pie', 'funnel'],
+                option: {
+                    funnel: {
+                        x: '25%',
+                        width: '50%',
+                        funnelAlign: 'left',
+                        max: 1548
+                    }
+                }
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'占有率',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:0.7, name:'该AP的PCPU占用率'},
+              {value:100-0.7,name:'其他'}
+            ]
+        }
+    ]
+};
+    myChart3.setOption(option3);
+
+</script>
+</body>
+</html>
