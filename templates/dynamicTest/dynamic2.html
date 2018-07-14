@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+        span{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                 <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose active" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+</div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu" >
+               <a class="item" style="font-size: 50px" href="/dynamicTest/0">
+                 开始测试
+              </a>
+              <a class="item"  style="font-size: 50px" href="/dynamicTest/1">
+                 函数流图
+              </a>
+               <a class="item active" style="font-size: 50px" href="/dynamicTest/2">
+                 网络流量
+              </a>
+              <a class="item" style="font-size: 50px" href="/dynamicTest/3">
+                 危险调用
+              </a>
+           </div>
+              <div class="ui bottom attached segment"  style="height: 90%">
+                 <div style="width: 80%;margin: auto auto;">
+                     <div class="ui styled fluid accordion">
+                      <div class="title">
+                          <div class="ui red horizontal label" style="font-size: 35px">POST</div>
+                           <span>http://www.heraldstudio.com/api/card HTTP/1.1</span>
+                      </div>
+                      <div class="content">
+                          <div class="ui horizontal label "style="font-size: 35px;margin-bottom:10px">详细信息:</div>
+                          <p class="transition hidden">
+                            POST http://www.heraldstudio.com/api/card HTTP/1.1<br>
+                            Content-Type: application/x-www-form-urlencoded<br>
+                            Content-Length: 57<br>
+                            Host: www.heraldstudio.com<br>
+                            Connection: Keep-Alive<br>
+                            Accept-Encoding: gzip<br>
+                            User-Agent: okhttp/3.1.2<br>
+                            uuid=62057ccd61a2fbf785bdec45cd3f148962ed4177&timedelta=1<br>
+                        </p>
+                           <div class="ui form">
+                                  <div class="three fields">
+                                    <div class="field">
+                                      <div class="ui  horizontal label" style="font-size: 30px;margin-bottom: 10px">测试URL</div>
+                                      <input type="text" placeholder="测试URL">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">测试参数</div>
+                                      <input type="text" placeholder="测试参数">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">cookie</div>
+                                      <input type="text" placeholder="cookie信息">
+                                    </div>
+                                  </div>
+                               <button class="ui primary button" style="font-size: 10px;padding: 20px">开始测试</button>
+                                </div>
+                         </div>
+                         <div class="title">
+                          <div class="ui red horizontal label" style="font-size: 35px">POST</div>
+                           <span>http://app.heraldstudio.com/checkversion HTTP/1.1</span>
+                      </div>
+                      <div class="content">
+                          <div class="ui horizontal label "style="font-size: 35px;margin-bottom:10px">详细信息:</div>
+                          <p class="transition hidden">
+                            POST http://app.heraldstudio.com/checkversion HTTP/1.1 <br>
+                            Content-Type: application/x-www-form-urlencoded<br>
+                            Content-Length: 118<br>
+                            Host: app.heraldstudio.com<br>
+                            Connection: Keep-Alive<br>
+                            Accept-Encoding: gzip<br>
+                            User-Agent: okhttp/3.1.2<br>
+
+                            uuid=62057ccd61a2fbf785bdec45cd3f148962ed4177&schoolnum=04015443&versioncode=23&versionname=v1.9.7&versiontype=Android<br>
+                        </p>
+                           <div class="ui form">
+                                  <div class="three fields">
+                                    <div class="field">
+                                      <div class="ui  horizontal label" style="font-size: 30px;margin-bottom: 10px">测试URL</div>
+                                      <input type="text" placeholder="测试URL">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">测试参数</div>
+                                      <input type="text" placeholder="测试参数">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">cookie</div>
+                                      <input type="text" placeholder="cookie信息">
+                                    </div>
+                                  </div>
+                               <button class="ui primary button" style="font-size: 10px;padding: 20px">开始测试</button>
+                                </div>
+                         </div>
+                       <div class="title">
+                          <div class="ui purple horizontal label" style="font-size: 35px">GET</div>
+                           <span>http://www.heraldstudio.com/herald/api/v1/huodong/get?type=hot HTTP/1.1</span>
+                      </div>
+                      <div class="content">
+                          <div class="ui horizontal label"style="font-size: 35px;margin-bottom:10px">详细信息:</div>
+                          <p class="transition hidden">
+                           GET http://www.heraldstudio.com/herald/api/v1/huodong/get?type=hot HTTP/1.1<br>
+                            Host: www.heraldstudio.com<br>
+                            Connection: Keep-Alive<br>
+                            Accept-Encoding: gzip<br>
+                            User-Agent: okhttp/3.1.2<br>
+                        </p>
+                           <div class="ui form">
+                                  <div class="three fields">
+                                    <div class="field">
+                                      <div class="ui  horizontal label" style="font-size: 30px;margin-bottom: 10px">测试URL</div>
+                                      <input type="text" placeholder="测试URL">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">测试参数</div>
+                                      <input type="text" placeholder="测试参数">
+                                    </div>
+                                    <div class="field">
+                                      <div class="ui horizontal label" style="font-size: 30px;margin-bottom: 10px">cookie</div>
+                                      <input type="text" placeholder="cookie信息">
+                                    </div>
+                                  </div>
+                               <button class="ui primary button" style="font-size: 10px;padding: 20px">开始测试</button>
+                                </div>
+                         </div>
+
+                 </div>
+
+                </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+<script>
+    $('.ui.accordion').accordion()
+;
+</script>
+</html>

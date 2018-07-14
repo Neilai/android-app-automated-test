@@ -1,54 +1,75 @@
-__author__ = "Neil"
-__time__ = "2018/3/12 14:10"
-from app import App
-import optparse
-from reverse import reverseApp
-import time
-from jinja2 import Environment, PackageLoader
-import codecs
+import os.path
+
+import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+
+from tornado.options import define, options
+define("port", default=8000, help="run on the given port", type=int)
+
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self,input):
+
+        self.render('./dynamicTest/dynamic.html')
 
 
-if __name__ == "__main__":
-    parser = optparse.OptionParser()
-    parser.add_option("--package", dest="package", help="目标APP的包名")
-    parser.add_option("--activity", dest="activity", help="目标activity")
-    parser.add_option("--apk", dest="apk", help="目标APP的安装包")
-    options, _ = parser.parse_args()
-    if options.apk:
-        data = reverseApp("QQ_794.apk")
-        env = Environment(loader=PackageLoader('templates', 'html'))
-        template = env.get_template('reverseResult.html')
-        report = template.render(permission=data)
-        with codecs.open("reverseReport.html", "w", encoding="utf-8") as f:
-            f.write(report)
-    elif options.package and options.activity:
-        testApp=App(options.package,options.activity)
-        testApp.testLaunchtime(5)
-        testApp.LaunchApp()
-        time.sleep(2)
-        testApp.testCpuStatus()
-        testApp.testMem()
+class dynamicHandler(tornado.web.RequestHandler):
+    def get(self,input):
+        if input =='0':
+            self.render('./dynamicTest/dynamic0.html')
+        elif input=='1':
+            self.render('./dynamicTest/dynamic1.html')
+        elif input == '2':
+            self.render('./dynamicTest/dynamic2.html')
+        elif input == '3':
+            self.render('./dynamicTest/dynamic3.html')
 
-        env = Environment(loader=PackageLoader('templates', 'html'))
-        template = env.get_template('result.html')
-        report=template.render(memData=testApp.memData,timeData=testApp.timeData,cpuStatus=testApp.cpuStatus[0][1])
-        with codecs.open("report.html","w",encoding="utf-8") as f:
-            f.write(report)
-        testApp.StopApp()
+class reverseHandler(tornado.web.RequestHandler):
+    def get(self,input):
+        if input =='0':
+            self.render('./reverseTest/reverse0.html')
+        elif input =='1':
+            self.render('./reverseTest/reverse1.html')
+        elif input=='2':
+            self.render('./reverseTest/reverse2.html')
+        elif input == '3':
+            self.render('./reverseTest/reverse3.html')
 
-# calculator=App("com.android.calculator2",".Calculator")
-# calculator.testLaunchtime(3)
-# calculator.LaunchApp()
-# calculator.testCpuStatus()
-# env = Environment(loader=PackageLoader('templates', 'html'))
-# template = env.get_template('result.html')
-# # report=template.render(cpuStatus=calculator.cpuStatus[0][1])
-# # with codecs.open("report.html","w",encoding="utf-8") as f:
-# #     f.write(report)
-# calculator.StopApp()
-# calculator.LaunchApp()
-# time.sleep(1)
-# calculator.testTraffic()
-# calculator.StopApp()
+class staticHandler(tornado.web.RequestHandler):
+    def get(self,input):
+        if  input =='0':
+            self.render('./staticTest/static0.html')
+        elif input =='1':
+            self.render('./staticTest/static1.html')
+        elif  input=='2':
+            self.render('./staticTest/static2.html')
+        elif input == '3':
+            self.render('./staticTest/static3.html')
 
+
+class introductionHandler(tornado.web.RequestHandler):
+    def get(self,input):
+        if  input =='0':
+            self.render('./introduction/about.html')
+        elif input =='1':
+            self.render('./introduction/select.html')
+
+
+
+
+if __name__ == '__main__':
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(
+        handlers=[(r'/dynamicTest/(\w+)', dynamicHandler),
+                  (r'/reverseTest/(\w+)', reverseHandler),
+                  (r'/staticTest/(\w+)', staticHandler),
+                  (r'/introduction/(\w+)', introductionHandler),
+             ],
+        template_path=os.path.join(os.path.dirname(__file__), "templates"),
+        static_path=os.path.join(os.path.dirname(__file__), "static"),
+    )
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()
 

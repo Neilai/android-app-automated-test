@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+     <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <script src="https://cdn.bootcss.com/echarts/2.2.0/echarts-all.js"></script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                 <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose active" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+        </div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu">
+               <a class="item" style="font-size: 50px" href="/reverseTest/0">
+                 开始测试
+               </a>
+               <a class="item active"  style="font-size: 50px" href="/reverseTest/1">
+                 权限分析
+               </a>
+               <a class="item" style="font-size: 50px" href="/reverseTest/2">
+                 风险评估
+               </a>
+               <a class="item" style="font-size: 50px" href="/reverseTest/3">
+                 smali图谱
+               </a>
+           </div>
+           <div class="ui bottom attached segment"  style="height:90%">
+               <div style="margin: auto auto;width: 90%">
+                    <div id="main" style="width: 100%;height:1300px;"></div>
+               </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+//    permission=[{'Key': 'android.permission.WRITE_EXTERNAL_STORAGE', 'Title': '修改/删除SD卡中的内容', 'Memo': '允许应用程序写入SD卡。', 'Level': 0}, {'Key': 'android.permission.INTERNET', 'Title': '访问网络', 'Memo': '允许程序访问网络.', 'Level': 0}, {'Key': 'android.permission.VIBRATE', 'Title': '控制振动器', 'Memo': '允许应用程序控制振动器。', 'Level': 0}, {'Key': 'android.permission.ACCESS_NETWORK_STATE', 'Title': '查看网络状态', 'Memo': '允许应用程序查看所有网络的状态。', 'Level': 0}, {'Key': 'android.permission.CHANGE_CONFIGURATION', 'Title': '更改用户界面设置', 'Memo': '允许应用程序更改当前配置，例如语言设置或整体的字体大小。', 'Level': 0}, {'Key': 'android.permission.RECEIVE_BOOT_COMPLETED', 'Title': '开机时自动启动', 'Memo': '允许应用程序在系统完成启动后即自行启动。这样会延长手机的启动时间，而且如果应用程序一直运行，会降低手机的整体速度。', 'Level': 1}, {'Key': 'android.permission.WAKE_LOCK', 'Title': '防止手机休眠', 'Memo': '允许应用程序防止手机进入休眠状态。', 'Level': 0}, {'Key': 'android.permission.SYSTEM_ALERT_WINDOW', 'Title': '显示系统级警报', 'Memo': '允许应用程序显示系统警报窗口。恶意应用程序可借此掌控整个手机屏幕。', 'Level': 1}, {'Key': 'android.permission.RECORD_AUDIO', 'Title': '录音', 'Memo': '允许应用程序访问录音路径。', 'Level': 1}, {'Key': 'android.permission.MODIFY_AUDIO_SETTINGS', 'Title': '更改您的音频设置', 'Memo': '允许应用程序修改整个系统的音频设置，如音量和路由。', 'Level': 0}, {'Key': 'android.permission.CAMERA', 'Title': '拍照', 'Memo': '允许应用程序使用相机拍照，这样应用程序可随时收集进入相机镜头的图像。', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_STATE', 'Title': '更改 WLAN 状态', 'Memo': '允许应用程序连接到 WLAN 接入点以及与 WLAN 接入点断开连接，并对配置的 WLAN 网络进行更改。', 'Level': 0}, {'Key': 'android.permission.ACCESS_WIFI_STATE', 'Title': '查看 WLAN 状态', 'Memo': '允许应用程序查看有关 WLAN 状态的信息。', 'Level': 0}, {'Key': 'android.permission.READ_PHONE_STATE', 'Title': '读取手机状态和身份', 'Memo': '允许应用程序访问设备的手机功能。有此权限的应用程序可确定此手机的号码和序列号，是否正在通话，以及对方的号码等。', 'Level': 1}, {'Key': 'android.permission.KILL_BACKGROUND_PROCESSES', 'Title': '结束后台进程', 'Memo': '无论内存资源是否紧张，都允许应用程序结束其他应用程序的后台进程。', 'Level': 0}, {'Key': 'android.permission.CALL_PHONE', 'Title': '直接拨打电话号码', 'Memo': '允许应用程序在您不介入的情况下拨打电话。恶意应用程序可借此在您的话费单上产生意外通话费。请注意，此权限不允许应用程序拨打紧急呼救电话。', 'Level': 2}, {'Key': 'android.permission.PERSISTENT_ACTIVITY', 'Title': '让应用程序始终运行', 'Memo': '允许应用程序部分持续运行，这样系统便不能将其用于其他应用程序。', 'Level': 0}, {'Key': 'android.permission.WRITE_SETTINGS', 'Title': '修改全局系统设置', 'Memo': '允许应用程序修改系统设置方面的数据。恶意应用程序可借此破坏您的系统配置。', 'Level': 1}, {'Key': 'android.permission.SEND_SMS', 'Title': '发送短信', 'Memo': '允许应用程序发送短信。恶意应用程序可能会不经您的确认就发送信息，给您带来费用。', 'Level': 2}, {'Key': 'android.permission.READ_SMS', 'Title': '读取短信或彩信', 'Memo': '允许应用程序读取您的手机或 SIM 卡中存储的短信。恶意应用程序可借此读取您的机密信息。', 'Level': 2}, {'Key': 'android.permission.GET_TASKS', 'Title': '检索当前运行的应用程序', 'Memo': '允许应用程序检索有关当前和最近运行的任务的信息。恶意应用程序可借此发现有关其他应用程序的保密信息。', 'Level': 1}, {'Key': 'android.permission.READ_LOGS', 'Title': '读取系统日志文件', 'Memo': '允许应用程序从系统的各日志文件中读取信息。这样应用程序可以发现您的手机使用情况，但这些信息不应包含任何个人信息或保密信息。', 'Level': 0}, {'Key': 'android.permission.READ_CONTACTS', 'Title': '读取联系人数据', 'Memo': '允许应用程序读取您手机上存储的所有联系人（地址）数据。恶意应用程序可借此将您的数据发送给其他人。', 'Level': 1}, {'Key': 'android.permission.FLASHLIGHT', 'Title': '控制闪光灯', 'Memo': '允许应用程序控制闪光灯。', 'Level': 0}, {'Key': 'android.permission.BLUETOOTH', 'Title': '创建蓝牙连接', 'Memo': '允许应用程序查看本地蓝牙手机的配置，以及建立或接受与配对设备的连接。', 'Level': 1}, {'Key': 'android.permission.BLUETOOTH_ADMIN', 'Title': '蓝牙管理', 'Memo': '允许应用程序配置本地蓝牙手机，以及发现远程设备并与其配对。', 'Level': 0}, {'Key': 'android.permission.BROADCAST_STICKY', 'Title': '发送置顶广播', 'Memo': '允许应用程序发送顽固广播，这些广播在结束后仍会保留。恶意应用程序可能会借此使手机耗用太多内存，从而降低其速度或稳定性。', 'Level': 1}, {'Key': 'android.permission.WRITE_CONTACTS', 'Title': '写入联系数据', 'Memo': '允许应用程序修改您手机上存储的联系人（地址）数据。恶意应用程序可借此清除或修改您的联系人数据。', 'Level': 1}, {'Key': 'android.permission.WRITE_OWNER_DATA', 'Title': '写入所有者数据', 'Memo': '允许应用程序修改您手机上存储的手机所有者数据。恶意应用程序可借此清除或修改所有者数据。', 'Level': 1}, {'Key': 'android.permission.CHANGE_NETWORK_STATE', 'Title': '更改网络连接性', 'Memo': '允许应用程序更改网络连接的状态。', 'Level': 0}, {'Key': 'android.permission.EXPAND_STATUS_BAR', 'Title': '展开/收拢状态栏', 'Memo': '允许应用程序展开或收拢状态栏。', 'Level': 0}, {'Key': 'android.permission.READ_CALENDAR', 'Title': '读取日历活动', 'Memo': '允许应用程序读取您手机上存储的所有日历活动。恶意应用程序可借此将您的日历活动发送给其他人。', 'Level': 1}, {'Key': 'android.permission.WRITE_CALENDAR', 'Title': '添加或修改日历活动以及向邀请对象发送电子邮件', 'Memo': '允许应用程序添加或更改日历中的活动，这可能会向邀请对象发送电子邮件。恶意应用程序可能会借此清除或修改您的日历活动，或者向邀请对象发送电子邮件。', 'Level': 1}, {'Key': 'android.permission.GET_ACCOUNTS', 'Title': '发现已知帐户', 'Memo': '允许应用程序获取手机已知的帐户列表。', 'Level': 0}, {'Key': 'android.permission.MANAGE_ACCOUNTS', 'Title': '管理帐户列表', 'Memo': '允许应用程序执行添加、删除帐户及删除其密码之类的操作。', 'Level': 0}, {'Key': 'android.permission.AUTHENTICATE_ACCOUNTS', 'Title': '作为帐户身份验证程序', 'Memo': '允许应用程序使用 AccountManager 的帐户身份验证程序功能，包括创建帐户以及获取和设置其密码。', 'Level': 0}, {'Key': 'android.permission.WRITE_CONTACTS', 'Title': '写入联系数据', 'Memo': '允许应用程序修改您手机上存储的联系人（地址）数据。恶意应用程序可借此清除或修改您的联系人数据。', 'Level': 1}, {'Key': 'android.permission.READ_SYNC_SETTINGS', 'Title': '读取同步设置', 'Memo': '允许应用程序读取同步设置，例如是否为\\“联系人\\”启用同步。', 'Level': 0}, {'Key': 'android.permission.WRITE_SYNC_SETTINGS', 'Title': '写入同步设置', 'Memo': '允许应用程序修改同步设置，例如是否为\\“联系人\\”启用同步。', 'Level': 1}, {'Key': 'android.permission.DISABLE_KEYGUARD', 'Title': '停用键锁', 'Memo': '允许应用程序停用键锁和任何关联的密码安全设置。例如，在手机上接听电话时停用键锁，在通话结束后重新启用键锁。', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_MULTICAST_STATE', 'Title': '允许接收WLAN多播', 'Memo': '允许应用程序接收并非直接向您的设备发送的数据包。这样在查找附近提供的服务时很有用。这种操作所耗电量大于非多播模式。', 'Level': 1}, {'Key': 'android.permission.RESTART_PACKAGES', 'Title': '重启程序', 'Memo': '允许程序自己重启或重启其他程序', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_STATE', 'Title': '更改 WLAN 状态', 'Memo': '允许应用程序连接到 WLAN 接入点以及与 WLAN 接入点断开连接，并对配置的 WLAN 网络进行更改。', 'Level': 0}, {'Key': 'android.permission.INTERNET', 'Title': '访问网络', 'Memo': '允许程序访问网络.', 'Level': 0}, {'Key': 'android.permission.ACCESS_WIFI_STATE', 'Title': '查看 WLAN 状态', 'Memo': '允许应用程序查看有关 WLAN 状态的信息。', 'Level': 0}, {'Key': 'android.permission.ACCESS_NETWORK_STATE', 'Title': '查看网络状态', 'Memo': '允许应用程序查看所有网络的状态。', 'Level': 0}, {'Key': 'android.permission.ACCESS_FINE_LOCATION', 'Title': '精准的(GPS)位置', 'Memo': '访问精准的位置源，例如手机上的全球定位系统(如果有)。恶意应用程序可能会借此确定您所处的位置，并可能消耗额外的电池电量。', 'Level': 1}, {'Key': 'android.permission.ACCESS_COARSE_LOCATION', 'Title': '大概位置', 'Memo': '访问大概的位置源(例如蜂窝网络数据库)以确定手机的大概位置(如果可以)。恶意应用程序可借此确定您所处的大概位置。', 'Level': 1}, {'Key': 'android.permission.CAMERA', 'Title': '拍照', 'Memo': '允许应用程序使用相机拍照，这样应用程序可随时收集进入相机镜头的图像。', 'Level': 0}, {'Key': 'android.permission.READ_PHONE_STATE', 'Title': '读取手机状态和身份', 'Memo': '允许应用程序访问设备的手机功能。有此权限的应用程序可确定此手机的号码和序列号，是否正在通话，以及对方的号码等。', 'Level': 1}, {'Key': 'android.permission.WAKE_LOCK', 'Title': '防止手机休眠', 'Memo': '允许应用程序防止手机进入休眠状态。', 'Level': 0}, {'Key': 'android.permission.RECEIVE_BOOT_COMPLETED', 'Title': '开机时自动启动', 'Memo': '允许应用程序在系统完成启动后即自行启动。这样会延长手机的启动时间，而且如果应用程序一直运行，会降低手机的整体速度。', 'Level': 1}]
+    option = {
+        title : {
+            text: 'APP权限分析图',
+            x:'right',
+            y:'bottom'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: '{a} : {b}'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                restore : {show: true},
+                magicType: {show: true, type: ['force', 'chord']},
+                saveAsImage : {show: true}
+            }
+        },
+        legend: {
+            x: 'left',
+            data:['APP','低危权限','中危权限','高危权限'],
+            textStyle: {
+                color: '#333',
+                fontSize:30
+            }
+    },
+        series : [
+        {
+            type:'force',
+            name : "APP权限分析",
+            ribbonType: false,
+            categories : [
+                {
+                    name: 'APP'
+                },
+                {
+                    name: '低危权限'
+                },
+                {
+                    name: '中危权限'
+                },
+                {
+                    name:'高危权限'
+                }
+            ],
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#333',
+                            fontSize:30
+                        }
+                    },
+                    nodeStyle : {
+                        brushType : 'both',
+                        borderColor : 'rgba(255,215,0,0.4)',
+                        borderWidth : 1
+                    },
+                    linkStyle: {
+                        type: 'curve'
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                        // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                    },
+                    nodeStyle : {
+                        //r: 30
+                    },
+                    linkStyle : {}
+                }
+            },
+            useWorker: false,
+            minRadius : 40,
+            maxRadius : 60,
+            gravity: 1.1,
+            scaling: 1.1,
+            roam: 'move',
+            nodes:[
+                {category:0, name: 'APP', value : 50},
+
+            ],
+            links : [
+//                {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
+        ]}
+    ]
+    };
+    var permission=[{'Key': 'android.permission.WRITE_EXTERNAL_STORAGE', 'Title': '修改/删除SD卡中的内容', 'Memo': '允许应用程序写入SD卡。', 'Level': 0}, {'Key': 'android.permission.INTERNET', 'Title': '访问网络', 'Memo': '允许程序访问网络.', 'Level': 0}, {'Key': 'android.permission.VIBRATE', 'Title': '控制振动器', 'Memo': '允许应用程序控制振动器。', 'Level': 0}, {'Key': 'android.permission.ACCESS_NETWORK_STATE', 'Title': '查看网络状态', 'Memo': '允许应用程序查看所有网络的状态。', 'Level': 0}, {'Key': 'android.permission.CHANGE_CONFIGURATION', 'Title': '更改用户界面设置', 'Memo': '允许应用程序更改当前配置，例如语言设置或整体的字体大小。', 'Level': 0}, {'Key': 'android.permission.RECEIVE_BOOT_COMPLETED', 'Title': '开机时自动启动', 'Memo': '允许应用程序在系统完成启动后即自行启动。这样会延长手机的启动时间，而且如果应用程序一直运行，会降低手机的整体速度。', 'Level': 1}, {'Key': 'android.permission.WAKE_LOCK', 'Title': '防止手机休眠', 'Memo': '允许应用程序防止手机进入休眠状态。', 'Level': 0}, {'Key': 'android.permission.SYSTEM_ALERT_WINDOW', 'Title': '显示系统级警报', 'Memo': '允许应用程序显示系统警报窗口。恶意应用程序可借此掌控整个手机屏幕。', 'Level': 1}, {'Key': 'android.permission.RECORD_AUDIO', 'Title': '录音', 'Memo': '允许应用程序访问录音路径。', 'Level': 1}, {'Key': 'android.permission.MODIFY_AUDIO_SETTINGS', 'Title': '更改您的音频设置', 'Memo': '允许应用程序修改整个系统的音频设置，如音量和路由。', 'Level': 0}, {'Key': 'android.permission.CAMERA', 'Title': '拍照', 'Memo': '允许应用程序使用相机拍照，这样应用程序可随时收集进入相机镜头的图像。', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_STATE', 'Title': '更改 WLAN 状态', 'Memo': '允许应用程序连接到 WLAN 接入点以及与 WLAN 接入点断开连接，并对配置的 WLAN 网络进行更改。', 'Level': 0}, {'Key': 'android.permission.ACCESS_WIFI_STATE', 'Title': '查看 WLAN 状态', 'Memo': '允许应用程序查看有关 WLAN 状态的信息。', 'Level': 0}, {'Key': 'android.permission.READ_PHONE_STATE', 'Title': '读取手机状态和身份', 'Memo': '允许应用程序访问设备的手机功能。有此权限的应用程序可确定此手机的号码和序列号，是否正在通话，以及对方的号码等。', 'Level': 1}, {'Key': 'android.permission.KILL_BACKGROUND_PROCESSES', 'Title': '结束后台进程', 'Memo': '无论内存资源是否紧张，都允许应用程序结束其他应用程序的后台进程。', 'Level': 0}, {'Key': 'android.permission.CALL_PHONE', 'Title': '直接拨打电话号码', 'Memo': '允许应用程序在您不介入的情况下拨打电话。恶意应用程序可借此在您的话费单上产生意外通话费。请注意，此权限不允许应用程序拨打紧急呼救电话。', 'Level': 2}, {'Key': 'android.permission.PERSISTENT_ACTIVITY', 'Title': '让应用程序始终运行', 'Memo': '允许应用程序部分持续运行，这样系统便不能将其用于其他应用程序。', 'Level': 0}, {'Key': 'android.permission.WRITE_SETTINGS', 'Title': '修改全局系统设置', 'Memo': '允许应用程序修改系统设置方面的数据。恶意应用程序可借此破坏您的系统配置。', 'Level': 1}, {'Key': 'android.permission.SEND_SMS', 'Title': '发送短信', 'Memo': '允许应用程序发送短信。恶意应用程序可能会不经您的确认就发送信息，给您带来费用。', 'Level': 2}, {'Key': 'android.permission.READ_SMS', 'Title': '读取短信或彩信', 'Memo': '允许应用程序读取您的手机或 SIM 卡中存储的短信。恶意应用程序可借此读取您的机密信息。', 'Level': 2}, {'Key': 'android.permission.GET_TASKS', 'Title': '检索当前运行的应用程序', 'Memo': '允许应用程序检索有关当前和最近运行的任务的信息。恶意应用程序可借此发现有关其他应用程序的保密信息。', 'Level': 1}, {'Key': 'android.permission.READ_LOGS', 'Title': '读取系统日志文件', 'Memo': '允许应用程序从系统的各日志文件中读取信息。这样应用程序可以发现您的手机使用情况，但这些信息不应包含任何个人信息或保密信息。', 'Level': 0}, {'Key': 'android.permission.READ_CONTACTS', 'Title': '读取联系人数据', 'Memo': '允许应用程序读取您手机上存储的所有联系人（地址）数据。恶意应用程序可借此将您的数据发送给其他人。', 'Level': 1}, {'Key': 'android.permission.FLASHLIGHT', 'Title': '控制闪光灯', 'Memo': '允许应用程序控制闪光灯。', 'Level': 0}, {'Key': 'android.permission.BLUETOOTH', 'Title': '创建蓝牙连接', 'Memo': '允许应用程序查看本地蓝牙手机的配置，以及建立或接受与配对设备的连接。', 'Level': 1}, {'Key': 'android.permission.BLUETOOTH_ADMIN', 'Title': '蓝牙管理', 'Memo': '允许应用程序配置本地蓝牙手机，以及发现远程设备并与其配对。', 'Level': 0}, {'Key': 'android.permission.BROADCAST_STICKY', 'Title': '发送置顶广播', 'Memo': '允许应用程序发送顽固广播，这些广播在结束后仍会保留。恶意应用程序可能会借此使手机耗用太多内存，从而降低其速度或稳定性。', 'Level': 1}, {'Key': 'android.permission.WRITE_CONTACTS', 'Title': '写入联系数据', 'Memo': '允许应用程序修改您手机上存储的联系人（地址）数据。恶意应用程序可借此清除或修改您的联系人数据。', 'Level': 1}, {'Key': 'android.permission.WRITE_OWNER_DATA', 'Title': '写入所有者数据', 'Memo': '允许应用程序修改您手机上存储的手机所有者数据。恶意应用程序可借此清除或修改所有者数据。', 'Level': 1}, {'Key': 'android.permission.CHANGE_NETWORK_STATE', 'Title': '更改网络连接性', 'Memo': '允许应用程序更改网络连接的状态。', 'Level': 0}, {'Key': 'android.permission.EXPAND_STATUS_BAR', 'Title': '展开/收拢状态栏', 'Memo': '允许应用程序展开或收拢状态栏。', 'Level': 0}, {'Key': 'android.permission.READ_CALENDAR', 'Title': '读取日历活动', 'Memo': '允许应用程序读取您手机上存储的所有日历活动。恶意应用程序可借此将您的日历活动发送给其他人。', 'Level': 1}, {'Key': 'android.permission.WRITE_CALENDAR', 'Title': '添加或修改日历活动以及向邀请对象发送电子邮件', 'Memo': '允许应用程序添加或更改日历中的活动，这可能会向邀请对象发送电子邮件。恶意应用程序可能会借此清除或修改您的日历活动，或者向邀请对象发送电子邮件。', 'Level': 1}, {'Key': 'android.permission.GET_ACCOUNTS', 'Title': '发现已知帐户', 'Memo': '允许应用程序获取手机已知的帐户列表。', 'Level': 0}, {'Key': 'android.permission.MANAGE_ACCOUNTS', 'Title': '管理帐户列表', 'Memo': '允许应用程序执行添加、删除帐户及删除其密码之类的操作。', 'Level': 0}, {'Key': 'android.permission.AUTHENTICATE_ACCOUNTS', 'Title': '作为帐户身份验证程序', 'Memo': '允许应用程序使用 AccountManager 的帐户身份验证程序功能，包括创建帐户以及获取和设置其密码。', 'Level': 0}, {'Key': 'android.permission.WRITE_CONTACTS', 'Title': '写入联系数据', 'Memo': '允许应用程序修改您手机上存储的联系人（地址）数据。恶意应用程序可借此清除或修改您的联系人数据。', 'Level': 1}, {'Key': 'android.permission.READ_SYNC_SETTINGS', 'Title': '读取同步设置', 'Memo': '允许应用程序读取同步设置，例如是否为\\“联系人\\”启用同步。', 'Level': 0}, {'Key': 'android.permission.WRITE_SYNC_SETTINGS', 'Title': '写入同步设置', 'Memo': '允许应用程序修改同步设置，例如是否为\\“联系人\\”启用同步。', 'Level': 1}, {'Key': 'android.permission.DISABLE_KEYGUARD', 'Title': '停用键锁', 'Memo': '允许应用程序停用键锁和任何关联的密码安全设置。例如，在手机上接听电话时停用键锁，在通话结束后重新启用键锁。', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_MULTICAST_STATE', 'Title': '允许接收WLAN多播', 'Memo': '允许应用程序接收并非直接向您的设备发送的数据包。这样在查找附近提供的服务时很有用。这种操作所耗电量大于非多播模式。', 'Level': 1}, {'Key': 'android.permission.RESTART_PACKAGES', 'Title': '重启程序', 'Memo': '允许程序自己重启或重启其他程序', 'Level': 0}, {'Key': 'android.permission.CHANGE_WIFI_STATE', 'Title': '更改 WLAN 状态', 'Memo': '允许应用程序连接到 WLAN 接入点以及与 WLAN 接入点断开连接，并对配置的 WLAN 网络进行更改。', 'Level': 0}, {'Key': 'android.permission.INTERNET', 'Title': '访问网络', 'Memo': '允许程序访问网络.', 'Level': 0}, {'Key': 'android.permission.ACCESS_WIFI_STATE', 'Title': '查看 WLAN 状态', 'Memo': '允许应用程序查看有关 WLAN 状态的信息。', 'Level': 0}, {'Key': 'android.permission.ACCESS_NETWORK_STATE', 'Title': '查看网络状态', 'Memo': '允许应用程序查看所有网络的状态。', 'Level': 0}, {'Key': 'android.permission.ACCESS_FINE_LOCATION', 'Title': '精准的(GPS)位置', 'Memo': '访问精准的位置源，例如手机上的全球定位系统(如果有)。恶意应用程序可能会借此确定您所处的位置，并可能消耗额外的电池电量。', 'Level': 1}, {'Key': 'android.permission.ACCESS_COARSE_LOCATION', 'Title': '大概位置', 'Memo': '访问大概的位置源(例如蜂窝网络数据库)以确定手机的大概位置(如果可以)。恶意应用程序可借此确定您所处的大概位置。', 'Level': 1}, {'Key': 'android.permission.CAMERA', 'Title': '拍照', 'Memo': '允许应用程序使用相机拍照，这样应用程序可随时收集进入相机镜头的图像。', 'Level': 0}, {'Key': 'android.permission.READ_PHONE_STATE', 'Title': '读取手机状态和身份', 'Memo': '允许应用程序访问设备的手机功能。有此权限的应用程序可确定此手机的号码和序列号，是否正在通话，以及对方的号码等。', 'Level': 1}, {'Key': 'android.permission.WAKE_LOCK', 'Title': '防止手机休眠', 'Memo': '允许应用程序防止手机进入休眠状态。', 'Level': 0}, {'Key': 'android.permission.RECEIVE_BOOT_COMPLETED', 'Title': '开机时自动启动', 'Memo': '允许应用程序在系统完成启动后即自行启动。这样会延长手机的启动时间，而且如果应用程序一直运行，会降低手机的整体速度。', 'Level': 1}]
+    for(var i=0;i<permission.length;i++) {
+        var obj={}
+        obj["category"]=permission[i]["Level"]+1;
+        obj["name"]=permission[i]["Title"]
+        if(obj.category==1)
+            obj["value"]=10;
+        else if((obj.category==2))
+            obj["value"]=20;
+        else if((obj.category==3))
+            obj["value"]=30;
+        option.series[0].nodes.push(obj)
+        var link={}
+        link["source"]="APP"
+        link["target"]=obj["name"]
+        link["weight"]=obj.category
+        option.series[0].links.push(link)
+    }
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>

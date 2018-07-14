@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+     <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <script src="https://cdn.bootcss.com/echarts/2.2.0/echarts-all.js"></script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose active" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+        </div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu">
+               <a class="item" style="font-size: 50px" href="/reverseTest/0">
+                   开始测试
+               </a>
+               <a class="item"  style="font-size: 50px" href="/reverseTest/1">
+                   权限分析
+               </a>
+               <a class="item active" style="font-size: 50px" href="/reverseTest/2">
+                   风险评估
+               </a>
+               <a class="item" style="font-size: 50px" href="/reverseTest/3">
+                   smali图谱
+               </a>
+           </div>
+           <div class="ui bottom attached segment"  style="height:90%">
+               <div style="margin: auto auto;width: 90%">
+                    <div class="ui column grid">
+                          <div class="column">
+                            <div class="ui raised segment">
+                              <a class="ui red ribbon label"><p> 存在webview file域同源策略晓过安全风险</p> </a>
+                              <p>webview漏洞是Android系统中常见并且高发的漏洞类型，恶意用用程序
+                                可以通过该漏洞盗取用于隐私，Cookie信息，浏览去存储密码等诸多敏感信息，
+                                造成严重的损失。
+                                </p>
+                              <a class="ui blue ribbon label"><p>存在 content Provider文件目录遍历安全风险</p></a>
+                              <p>在Android系统中组件ConteIlt Provider存在目录遍历的安全风险，该安全
+                风险的主要原理是：Content Provider组件对外暴露，并且对Content Provider
+组件的访问权限没有进行有效控制，对访问文件的Uri也没有进行有效过滤，
+导致攻击者可以通过openFile()接口对content Pmvider中的目录进行遍历，造 成信息泄漏</p>
+                            </div>
+                          </div>
+                        </div>
+               </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+</html>

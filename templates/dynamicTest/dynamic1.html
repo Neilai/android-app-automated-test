@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+  <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <script src="https://cdn.bootcss.com/echarts/2.2.0/echarts-all.js"></script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+         <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose active" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+        </div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu" >
+              <a class="item" style="font-size: 50px" href="/dynamicTest/0">
+                 开始测试
+              </a>
+              <a class="item active"  style="font-size: 50px" href="/dynamicTest/1">
+                 函数流图
+              </a>
+               <a class="item" style="font-size: 50px" href="/dynamicTest/2">
+                 网络流量
+              </a>
+              <a class="item" style="font-size: 50px" href="/dynamicTest/3">
+                 危险调用
+              </a>
+           </div>
+           <div class="ui bottom attached segment"  style="height: 90%">
+               <div style="margin: auto auto;width: 90%;display: flex">
+                    <div id="main" style="width:100%;height:1200px ;margin: auto auto"></div>
+               </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+<script>
+var myChart = echarts.init(document.getElementById('main'));
+
+// 指定图表的配置项和数
+option = {
+            title : {
+                text: '函数调用流程图',
+                x:'right',
+                y:'bottom',
+
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: '{a} : {b}'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    restore : {show: true},
+                    magicType: {show: true, type: ['force', 'chord']},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend: {
+                x: 'left',
+                data:['私有函数','公有函数'],
+                textStyle:
+                    {
+                        color: '#333',
+                        fontSize:30
+                    }
+            },
+            series : [
+                {
+                    type:'force',
+                    name : "函数",
+                    ribbonType: false,
+                    categories : [
+                        {
+                            name:  '私有函数'
+                        },
+                        {
+                            symbol: '公有函数'
+                        }
+                    ],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: '#333',
+                                    fontSize:30
+                                },
+                            },
+                            nodeStyle : {
+                                brushType : 'both',
+                                borderColor : 'rgba(255,215,0,0.4)',
+                                borderWidth : 5,
+                                textStyle: {
+                                    color: '#333',
+                                    fontsize:60
+                                },
+                            },
+                            fontsize:60,
+                            linkStyle : {
+
+                                width:3
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                show: false
+                                // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                            },
+                            nodeStyle : {
+                                //r: 30
+                            },
+                            linkStyle : {
+
+                            }
+                        }
+                    },
+                    minRadius : 100,
+                    maxRadius : 120,
+                    gravity: 1.1,
+                    scaling: 4,
+                    draggable: true,
+                    linkSymbol: 'arrow',
+                    steps: 10,
+                    coolDown: 0.9,
+                    //preventOverlap: true,
+                    nodes:[
+                        {category: 2 , name: 'Landroid/view/View$OnClickListener',value : 5},
+                        {category: 2 , name: 'butterknife/Unbinder',value : 5},
+                        {category: 1 , name: 'onReceive(Landroid/content/Context;Landroid/content/Intent;)V',value : 5},
+                        {category: 2 , name: 'toString()Ljava/lang/String',value : 5},
+                        {category: 1 , name: "Lcn/seu/herald_android/framework/json/b",value : 5},
+                        {category: 2 , name: 'onPageScrollStateChanged(I)V',value : 5},
+                        {category: 1 , name: 'Landroid/view/View$onPageScrolled',value : 5},
+                        {category: 2 , name: 'onCreate(Landroid/os/Bundle;)V',value : 5},
+                        {category: 1 , name: 'onCreateOptionsMenu(Landroid/view/Menu;)Z',value : 5}
+                    ],
+                    links : [
+                         {source : 'Landroid/view/View$OnClickListener', target : 'butterknife/Unbinder', weight : 2},
+                         {source : 'butterknife/Unbinder', target : 'onReceive(Landroid/content/Context;Landroid/content/Intent;)V', weight : 2},
+                         {source : 'onReceive(Landroid/content/Context;Landroid/content/Intent;)V', target : 'toString()Ljava/lang/String', weight : 2},
+                         {source : 'toString()Ljava/lang/String', target : 'Lcn/seu/herald_android/framework/json/b', weight : 2},
+                         {source : 'Lcn/seu/herald_android/framework/json/b', target : 'onPageScrollStateChanged(I)V', weight : 2},
+                         {source : 'onPageScrollStateChanged(I)V', target : 'Landroid/view/View$onPageScrolled', weight : 2},
+                         {source : 'Landroid/view/View$onPageScrolled', target : 'onCreate(Landroid/os/Bundle;)V', weight : 2},
+                         {source : 'onCreate(Landroid/os/Bundle;)V', target : 'onCreateOptionsMenu(Landroid/view/Menu;)Z', weight : 2},
+                    ],
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+
+</script>
+</html>

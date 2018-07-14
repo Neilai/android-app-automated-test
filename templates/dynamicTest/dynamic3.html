@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+
+   <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+        span{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose active" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+</div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu" >
+               <a class="item" style="font-size: 50px" href="/dynamicTest/0">
+                 开始测试
+              </a>
+              <a class="item"  style="font-size: 50px" href="/dynamicTest/1">
+                 函数流图
+              </a>
+               <a class="item" style="font-size: 50px" href="/dynamicTest/2">
+                 网络流量
+              </a>
+              <a class="item active" style="font-size: 50px" href="/dynamicTest/3">
+                 危险调用
+              </a>
+           </div>
+              <div class="ui bottom attached segment"  style="height: 90%">
+                 <div style="width: 80%;margin: auto auto;">
+                        <table class="ui celled table">
+  <thead style="font-size: 35px">
+    <tr>
+        <th>系统调用</th>
+        <th>是否调用</th>
+        <th>系统调用</th>
+        <th>是否调用</th>
+    </tr>
+  </thead>
+  <tbody style="font-size: 35px" >
+    <tr>
+      <td>发送短信</td>
+      <td><i class="icon close"></i> </td>
+      <td >读取联系人</td>
+        <td><i class="icon close"></i> </td>
+    </tr>
+    <tr>
+      <td>获取网络</td>
+      <td><i class="icon checkmark"></i> </td>
+      <td>收发网络数据</td>
+        <td><i class="icon checkmark"></i> </td>
+    </tr>
+    <tr>
+       <td>读取文件</td>
+       <td><i class="icon checkmark"></i> </td>
+       <td>使用摄像头</td>
+        <td><i class="icon close"></i> </td>
+    </tr>
+    <tr >
+      <td> 使用录音    </td>
+       <td><i class="icon close"></i> </td>
+       <td>获取location </td>
+        <td><i class="icon close"></i> </td>
+    </tr>
+  </tbody>
+</table>
+                 </div>
+
+                </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+<script>
+    $('.ui.accordion').accordion()
+;
+</script>
+</html>

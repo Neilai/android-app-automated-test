@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div  id="mask" style="position:absolute; width: 100%; height: 100%;background-color:rgba(0,0,0,0.2);z-index: 100;visibility: hidden">
+    <img src="/static/image/loading.gif" alt="" style="position :absolute; width:500px ; height:500px;z-index: 101;top:0;bottom: 0;left:0;right: 0;margin: auto auto" >
+</div>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose active" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+</div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu" >
+              <a class="active item" style="font-size: 50px" href="/dynamicTest/0">
+                 开始测试
+              </a>
+               <a class="item"  style="font-size: 50px" href="/dynamicTest/1">
+                 函数流图
+              </a>
+              <a class="item"  style="font-size: 50px" href="/dynamicTest/2">
+                 网络流量
+              </a>
+               <a class="item" style="font-size: 50px" href="/dynamicTest/3">
+                 危险调用
+              </a>
+           </div>
+           <div class="ui bottom attached segment"  style="height: 90%">
+               <div style="margin: auto auto;width: 90%">
+                    <div class="ui tall stacked segment">
+                    <h1><p style="font-size: 45px">动态测试介绍</p></h1>
+                    <p>您可以将录制好的自动化测试脚本输入到下列对话框中，点击开始测试按钮，系统会自动对APP运行时的各类函数及流量进行监控</p>
+                </div>
+                <div class="ui form">
+                      <div class="field">
+                        <div class="ui blue horizontal label" style="margin-bottom: 10px"><p style="font-size: 40px">请输入自动化测试脚本:</p></div><br/>
+                        <textarea rows="15" cols="30"></textarea>
+                      </div>
+                      <button class="ui primary button" style="font-size: 40px;padding: 20px">开始测试</button>
+               </div>
+               </div>
+           </div>
+        </div>
+     </div>
+</div>
+</body>
+<script>
+    button=document.querySelector("button")
+    mask=document.querySelector("#mask")
+
+    button.addEventListener("click",function () {
+        mask.style.visibility="visible";
+        setTimeout(function () {
+        mask.style.visibility="hidden"
+            },5000)
+    },false)
+</script>
+</html>

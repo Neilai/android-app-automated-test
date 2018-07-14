@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            margin: 2%;
+            border-top-width: 5%;
+            flex:1;
+            flex-wrap: nowrap;
+            text-align: center;
+        }
+        .choose{
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                <a class="item menuitem choose active" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+        </div>
+        <div class="rightcontainer">
+            <div class="ui top attached tabular menu">
+                <a class="active item" style="font-size: 60px" href="/introduction/0">
+                关于软件
+                </a>
+                <a class="item" style="font-size: 60px" href="/introduction/1">
+                选择设备
+                </a>
+                <button class="ui right labeled icon button" style="left: 55%; font-size: 60px; ">
+                    <i class="right arrow icon"></i>
+                        Next
+                </button>image/
+            </div>
+            <div class="ui bottom attached segment" style="min-height: 80%">
+                <div class="ui grid">
+                    <div class="six wide column">
+                        <img style="align:left; min-height:80%; min-width:80%; margin: 5%;" src="/static/image/4.jpg"  alt="安卓卫士" />
+                    </div>
+                    <div class="eight wide column" style="font-size:50px; text-indent: 2em; text-align: left;">
+                        <div class="ui stacked segment" style="font-size:50px; text-indent: 2em; text-align: left; margin: 2%;">
+                            <p >随着安卓手机的使用数量不断增加，恶意安卓应用程序的数量也不断增长，对用户的使用体验感、个人隐私、经济安全等多方面都带来了不良影响。针对目前市面上恶意APP检测软件的不足之处和恶意APP层出不穷的获取高危权限，隐蔽恶意代码的技术，为解决该问题，本平台基于基于逆向工程和自动化测试技术，对安卓APP进行安全性评估。</p>
+                            <p>该安卓APP安全性评估系统采用静态检测（含逆向分析）和动态检测相结合的方法对目标APP进行评估，判断目标APP是否存过大权限和危险的函数调用，同时分析APP性能，包括：CPU、内存占用情况，综合多种测试技术，形成最终的安全性评估报告。</p>
+                            <p>请点击“选择设备”，选中需要检测的安卓APP，然后开始进行测试吧!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--
+        <div class="rightcontainer">
+            <div class="ui top attached tabular menu">
+                <a class="active item" style="font-size: 60px">
+                关于软件
+                </a>
+                <a class="item" style="font-size: 60px">
+                选择设备
+                </a>
+                <button class="ui right labeled icon button" style="left: 55%; font-size: 60px; ">
+                    <i class="right arrow icon"></i>
+                        Next
+                </button>
+            </div>
+            <div class="ui bottom attached segment" style="min-height: 80%">
+                asdfghjk
+            </div>
+        </div>
+    -->
+    </div>
+<div >
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安卓APP在线安全评估平台</title>
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+    <script src="/static/semantic/dist/semantic.min.js"> </script>
+    <script src="https://cdn.bootcss.com/echarts/2.2.0/echarts-all.js"></script>
+    <style>
+        .main{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            background-color: #1b1c1d;
+            text-align: center;
+            display: flex;
+            height: 200px;
+        }
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            flex:1;
+            margin-top: 10px;
+        }
+        .leftcontainer{
+            margin: auto auto;
+            display: flex;
+            align-items: center;
+        }
+        .rightcontainer{
+            /*display:flex;*/
+            flex:1;
+            flex-wrap: nowrap;
+            /*background-color: red;*/
+        }
+        .choose{
+            font-size: 60px;
+        }
+        p{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<div  id="mask" style="position:absolute; width: 100%; height: 100%;background-color:rgba(0,0,0,0.2);z-index: 100;visibility: hidden">
+    <img src="/static/image/loading.gif" alt="" style="position :absolute; width:500px ; height:500px;z-index: 101;top:0;bottom: 0;left:0;right: 0;margin: auto auto" >
+</div>
+<div class="main">
+    <div class="header">
+        <h1 style="font-size: 90px;color: white;margin: auto auto">安卓APP在线安全评估平台</h1>
+    </div>
+    <div class="content">
+        <div class="leftcontainer">
+            <div class="ui compact vertical labeled icon menu leftmenu">
+                 <a class="item menuitem choose" href="/introduction/0"><i class="tags icon"></i>介绍</a>
+                <a class="item menuitem choose" href="/staticTest/0"><i class="wrench icon"></i> 静态分析</a>
+                <a class="item menuitem choose active" href="/reverseTest/0"><i class="magic icon"></i> 逆向分析 </a>
+                <a class="item menuitem choose" href="/dynamicTest/0"><i class="rocket icon"></i> 动态分析 </a>
+            </div>
+        </div>
+        <div class="rightcontainer" style="margin:30px">
+           <div class="ui top attached tabular menu">
+               <a class="item active" style="font-size: 50px" href="/reverseTest/0">
+                 开始测试
+               </a>
+               <a class="item"  style="font-size: 50px" href="/reverseTest/1">
+                 权限分析
+               </a>
+               <a class="item" style="font-size: 50px" href="/reverseTest/2">
+                 风险评估
+               </a>
+               <a class="item" style="font-size: 50px" href="/reverseTest/3">
+                 smali图谱
+               </a>
+           </div>
+          <div class="ui bottom attached segment" style="min-height: 80%">
+                <div class="ui grid">
+                    <div class="six wide column">
+                        <img style="align:left; min-height:80%; min-width:80%; margin: 5%;" src="/static/image/1.jpg"  alt="安卓卫士" />
+                    </div>
+                    <div class="eight wide column" style="font-size:50px; text-indent: 2em; text-align: left;display: flex">
+                        <div style="margin:auto auto;">
+                         <div class="ui stacked segment" style="font-size:50px; text-indent: 2em; text-align: left; ">
+                            <p>
+                                在逆向分析模块，我们会对输入的APK进行反编译，在得到的smali文件中，我们会对其进行语法分析，对每一个类
+                                提取出它的所有方法和字段，生成一个smali图谱，可以让研究人员了解app的结构。同时，我们会对app的权限信息
+                                和可能存在的风险进行评估，生成对应的文档
+                            </p>
+                        </div>
+                            <button class="ui primary button" style="font-size: 40px;padding: 20px;float: right">开始测试</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+</body>
+<script>
+    button=document.querySelector("button")
+    mask=document.querySelector("#mask")
+    button.addEventListener("click",function () {
+        mask.style.visibility="visible";
+        setTimeout(function () {
+        mask.style.visibility="hidden"
+            },3000)
+    },false)
+</script>
+</html>
